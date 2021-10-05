@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controler;
 
-/**
- *
- * @author User
- */
 public class Prueba {
-    
+    public static void main(String[] args){
+        
+        Reserva usuario = new Reserva("felipe","1036650151",4,2,"doble",true);
+        
+        System.out.println("--------HOTEL----------"
+                + "\nNOMBRE: " + usuario.nombreCliente()
+                + "\nCEDULA: " + usuario.cedulaCliente()
+                + "\nHABITACION: " + usuario.getHabitacion()
+                + "\nCANTIDAD PERSONAS: " + usuario.getCantidaPersonas()
+                + "\nDIAS DE ESTADIA: " + usuario.getDias()
+                + "\nGARAGE: " + usuario.getGarage()
+                +"\n--------------------------"
+                + "\nPRECIO TOTAL: " + usuario.precioTotal());
+    }
 }
