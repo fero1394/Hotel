@@ -91,7 +91,19 @@ public class Reserva extends Cliente{
       
         return this.personas;
     }
-               
+    
+    
+    public String getFechaEntrada(){
+        
+        return this.fentrada;
+    }
+    
+    
+    public String getFechaSalida(){
+        
+        return this.fsalida;
+    }
+    
 }
 
     
