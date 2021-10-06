@@ -11,6 +11,8 @@ public class Prueba {
                 + "\nNOMBRE: " + usuario.nombreCliente()
                 + "\nCEDULA: " + usuario.cedulaCliente()
                 + "\nHABITACION: " + usuario.getHabitacion()
+                + "\nFECHA ENTRADA: " + usuario.getFechaEntrada()
+                + "\nFECHA SALIDA: " + usuario.getFechaSalida()
                 + "\nCANTIDAD PERSONAS: " + usuario.getCantidaPersonas()
                 + "\nDIAS DE ESTADIA: " + usuario.getDias()
                 + "\nGARAGE: " + usuario.getGarage()
