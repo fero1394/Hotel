@@ -1,36 +1,39 @@
 package controler;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Reserva extends Cliente{
     
         private int diasEstadia;
         private int personas;
-        //private Date fentrada;
-        //private Date fsalida;
+        private String fentrada;
+        private String fsalida;
         private String tipoHabitacion;
         private double phabitacion;
         private double ptotal;
         private boolean garage;
+        LocalDate entrada;
+        LocalDate salida;
         
 
         //contructor
-    public Reserva(String nombre,String cedula ,int diasEstadia,int personas, String tipoHabitacion, boolean garage){
+    public Reserva(String nombre,String cedula ,String fentrada,String fsalida,int personas, String tipoHabitacion, boolean garage){
         
         super(nombre,cedula);
         
-        this.diasEstadia = diasEstadia;
         this.personas = personas;
-        //this.fentrada = fentrada;
-        //this.fsalida = fsalida;
+        this.fentrada = fentrada;
+        this.fsalida = fsalida;
         this.garage = garage;
         this.tipoHabitacion = tipoHabitacion;
                
     }
-       
+    
+    
+    
     
     public double precioTotal(){
-        
+                
             switch (tipoHabitacion) {
                 case "individual":
                     this.phabitacion = 60000;
@@ -44,8 +47,10 @@ public class Reserva extends Cliente{
                 default:
                     break;
             }
+        entrada = LocalDate.parse(fentrada);
+        salida = LocalDate.parse(fsalida);
                                         
-        return ptotal = phabitacion*diasEstadia;
+        return ptotal = phabitacion*((salida.getDayOfYear())-(entrada.getDayOfYear()));
     }
     
     
@@ -73,7 +78,12 @@ public class Reserva extends Cliente{
     
     public int getDias(){
         
-        return this.diasEstadia;
+        entrada = LocalDate.parse(fentrada);
+        salida = LocalDate.parse(fsalida);
+        
+        diasEstadia = (salida.getDayOfYear())-(entrada.getDayOfYear());
+        
+        return diasEstadia;
     }
     
     
