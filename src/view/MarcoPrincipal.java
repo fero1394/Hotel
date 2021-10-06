@@ -1,25 +1,66 @@
 package view;
 
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.JOptionPane;
 
 public class MarcoPrincipal extends javax.swing.JFrame {
-
+    
+    private boolean garaje;
     /**
      * Creates new form MarcoPrincipal
      */
     public MarcoPrincipal() {
-        initComponents();
-        
-        
+        initComponents();            
     }
 
-    
-    private void mostrarEnArea(JDateChooser date){
-        jLabel1.setText(date.getDateFormatString());
+    private String getNombre(){       
+        return nombreArea.getText();
+    }  
+    private String getCedula(){
+        return cedulaArea.getText();
     }
+    private String getTipo(){
+        if(typeOfRoom.getSelectedIndex() == 0){
+            return "Individual";
+        }else if(typeOfRoom.getSelectedIndex()==1){
+            return "Doble";
+        }else if(typeOfRoom.getSelectedIndex()==2){
+            return "Familiar";
+        }
+        return "";
+    }
+    private String getEntrada(){
+        
+        //Recibimos fecha
+        Date fecha = jDateChooserEntrada.getDate();
+        
+        //Le damos formato a esa fecha
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        
+        //retrnamos la fecha
+        return formato.format(fecha);     
+    }
+    private String getSalida(){
+        
+        //Recibimos fecha
+        Date fecha = jDateChooserSalida.getDate();
+        
+        //Le damos formato a esa fecha
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        
+        //retrnamos la fecha
+        return formato.format(fecha); 
+    }     
+    private boolean getGaraje(){
+        return garaje;
+    }
+    private void setTextoExitoso(){
+        ExitoConfiguracion.setText("Registro con Exito");
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -31,14 +72,14 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         jLabelFechaentrada = new javax.swing.JLabel();
         jLabelFechasalida = new javax.swing.JLabel();
         jLabelTipohabitacion = new javax.swing.JLabel();
-        NombreYApArea = new javax.swing.JTextField();
+        nombreArea = new javax.swing.JTextField();
         cedulaArea = new javax.swing.JTextField();
         ReservarButton = new javax.swing.JButton();
         typeOfRoom = new javax.swing.JComboBox<>();
         jDateChooserEntrada = new com.toedter.calendar.JDateChooser();
         jDateChooserSalida = new com.toedter.calendar.JDateChooser();
         plazaDegarajeCheck = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
+        ExitoConfiguracion = new javax.swing.JLabel();
         BuscarPanel = new javax.swing.JPanel();
         EliminarPanel = new javax.swing.JPanel();
 
@@ -54,9 +95,9 @@ public class MarcoPrincipal extends javax.swing.JFrame {
 
         jLabelTipohabitacion.setText("Tipo de habitacion:");
 
-        NombreYApArea.addActionListener(new java.awt.event.ActionListener() {
+        nombreArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NombreYApAreaActionPerformed(evt);
+                nombreAreaActionPerformed(evt);
             }
         });
 
@@ -75,6 +116,13 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         });
 
         plazaDegarajeCheck.setText("Plaza de garaje");
+        plazaDegarajeCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plazaDegarajeCheckActionPerformed(evt);
+            }
+        });
+
+        ExitoConfiguracion.setText("            Aun no se ha hecho ninguna reserva");
 
         javax.swing.GroupLayout ReservarPanelLayout = new javax.swing.GroupLayout(ReservarPanel);
         ReservarPanel.setLayout(ReservarPanelLayout);
@@ -94,7 +142,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
                         .addComponent(nombreYApLabel)))
                 .addGap(18, 18, 18)
                 .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ExitoConfiguracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(plazaDegarajeCheck)
                     .addComponent(cedulaArea)
                     .addGroup(ReservarPanelLayout.createSequentialGroup()
@@ -104,15 +152,15 @@ public class MarcoPrincipal extends javax.swing.JFrame {
                             .addComponent(jDateChooserSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ReservarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(NombreYApArea))
-                .addContainerGap(565, Short.MAX_VALUE))
+                    .addComponent(nombreArea))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         ReservarPanelLayout.setVerticalGroup(
             ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReservarPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(NombreYApArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nombreYApLabel))
                 .addGap(18, 18, 18)
                 .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -138,7 +186,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(plazaDegarajeCheck)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ExitoConfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(252, Short.MAX_VALUE))
         );
 
@@ -148,7 +196,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         BuscarPanel.setLayout(BuscarPanelLayout);
         BuscarPanelLayout.setHorizontalGroup(
             BuscarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 994, Short.MAX_VALUE)
+            .addGap(0, 545, Short.MAX_VALUE)
         );
         BuscarPanelLayout.setVerticalGroup(
             BuscarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +209,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         EliminarPanel.setLayout(EliminarPanelLayout);
         EliminarPanelLayout.setHorizontalGroup(
             EliminarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 994, Short.MAX_VALUE)
+            .addGap(0, 545, Short.MAX_VALUE)
         );
         EliminarPanelLayout.setVerticalGroup(
             EliminarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,7 +222,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Pestañas)
+            .addComponent(Pestañas, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,24 +233,38 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void typeOfRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeOfRoomActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_typeOfRoomActionPerformed
 
-    private void NombreYApAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreYApAreaActionPerformed
+    private void nombreAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreAreaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NombreYApAreaActionPerformed
+    }//GEN-LAST:event_nombreAreaActionPerformed
 
     private void ReservarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservarButtonActionPerformed
-        
-        //Recibimos fecha
-        Date fecha = jDateChooserEntrada.getDate();
-        
-        //Le damos formato a esa fecha
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        
-        System.out.println(formato.format(fecha));
-        //mostrarEnArea();
+        try{
+            getNombre();
+            getCedula();
+            getTipo();
+            getEntrada();
+            getSalida();
+            getGaraje();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Registro fallido Intente de nuevo");
+        }
+        setTextoExitoso();
     }//GEN-LAST:event_ReservarButtonActionPerformed
+
+    private void plazaDegarajeCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plazaDegarajeCheckActionPerformed
+       
+        if(plazaDegarajeCheck.isSelected()){
+            garaje=true;
+        }else{
+            garaje=false;
+        }
+        
+        
+             
+    }//GEN-LAST:event_plazaDegarajeCheckActionPerformed
 
     
     public static void main(String args[]) {
@@ -240,7 +302,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BuscarPanel;
     private javax.swing.JPanel EliminarPanel;
-    private javax.swing.JTextField NombreYApArea;
+    private javax.swing.JLabel ExitoConfiguracion;
     private javax.swing.JTabbedPane Pestañas;
     private javax.swing.JButton ReservarButton;
     private javax.swing.JPanel ReservarPanel;
@@ -248,10 +310,10 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel cedulaLabel;
     private com.toedter.calendar.JDateChooser jDateChooserEntrada;
     private com.toedter.calendar.JDateChooser jDateChooserSalida;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelFechaentrada;
     private javax.swing.JLabel jLabelFechasalida;
     private javax.swing.JLabel jLabelTipohabitacion;
+    private javax.swing.JTextField nombreArea;
     private javax.swing.JLabel nombreYApLabel;
     private javax.swing.JRadioButton plazaDegarajeCheck;
     private javax.swing.JComboBox<String> typeOfRoom;

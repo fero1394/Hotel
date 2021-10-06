@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="Pestañas" alignment="0" max="32767" attributes="0"/>
+          <Component id="Pestañas" alignment="0" pref="547" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -67,7 +67,7 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel1" max="32767" attributes="0"/>
+                          <Component id="ExitoConfiguracion" max="32767" attributes="0"/>
                           <Component id="plazaDegarajeCheck" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="cedulaArea" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -79,9 +79,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="ReservarButton" min="-2" pref="138" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="NombreYApArea" alignment="0" max="32767" attributes="0"/>
+                          <Component id="nombreArea" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="565" max="32767" attributes="0"/>
+                      <EmptySpace pref="116" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -90,7 +90,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="NombreYApArea" min="-2" max="-2" attributes="0"/>
+                          <Component id="nombreArea" min="-2" max="-2" attributes="0"/>
                           <Component id="nombreYApLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -124,7 +124,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="plazaDegarajeCheck" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="ExitoConfiguracion" min="-2" pref="37" max="-2" attributes="0"/>
                       <EmptySpace pref="252" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -156,9 +156,9 @@
                 <Property name="text" type="java.lang.String" value="Tipo de habitacion:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="NombreYApArea">
+            <Component class="javax.swing.JTextField" name="nombreArea">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NombreYApAreaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nombreAreaActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="cedulaArea">
@@ -196,8 +196,14 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Plaza de garaje"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plazaDegarajeCheckActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="ExitoConfiguracion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="            Aun no se ha hecho ninguna reserva"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -213,7 +219,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="994" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="545" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -235,7 +241,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="994" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="545" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
