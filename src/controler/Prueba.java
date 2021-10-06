@@ -1,10 +1,11 @@
 
 package controler;
 
+
 public class Prueba {
     public static void main(String[] args){
         
-        Reserva usuario = new Reserva("felipe","1036650151",4,2,"doble",true);
+        Reserva usuario = new Reserva("felipe","1036650151","2021-10-01","2021-10-05",2,"doble",true);
         
         System.out.println("--------HOTEL----------"
                 + "\nNOMBRE: " + usuario.nombreCliente()
@@ -15,5 +16,6 @@ public class Prueba {
                 + "\nGARAGE: " + usuario.getGarage()
                 +"\n--------------------------"
                 + "\nPRECIO TOTAL: " + usuario.precioTotal());
+        
     }
 }
