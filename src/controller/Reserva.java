@@ -1,8 +1,9 @@
-package controler;
+package controller;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Reserva extends Cliente{
+public class Reserva extends Cliente implements Serializable{
     
         private int diasEstadia;
         private int personas;
@@ -16,7 +17,7 @@ public class Reserva extends Cliente{
         LocalDate salida;
         
 
-        //contructor
+    //contructor
     public Reserva(String nombre,String cedula ,String fentrada,String fsalida,int personas, String tipoHabitacion, boolean garage){
         
         super(nombre,cedula);
@@ -29,7 +30,7 @@ public class Reserva extends Cliente{
                
     }
     
-    
+    private static final long serialVersionUID = 1L;
     
     
     public double precioTotal(){
@@ -72,10 +73,8 @@ public class Reserva extends Cliente{
         
         return opcion;
     }
-    
-    
-    
-    
+        
+     
     public int getDias(){
         
         entrada = LocalDate.parse(fentrada);
@@ -103,6 +102,9 @@ public class Reserva extends Cliente{
         
         return this.fsalida;
     }
+    
+   
+    
     
 }
 

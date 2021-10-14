@@ -1,10 +1,14 @@
 
-package controler;
+package controller;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable{
     
     private final String nombre;
     private final String cedula;
+    
+    private static final long serialVersionUID = 1L;
     
     public Cliente(String nombre,String cedula){
         

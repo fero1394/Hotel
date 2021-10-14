@@ -1,14 +1,26 @@
 package view;
-
+import model.Serializar;
+import controller.Reserva;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ItemEvent;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class MarcoPrincipal extends javax.swing.JFrame {
     
+    Reserva rese;
     private boolean garaje;
+    Serializar guarda = new Serializar();
+    boolean focoReservar = true;
+    
+    //Creamos un ArrayList de tipo objeto para guardar temporalmente los clientes
+    ArrayList<Reserva> lista = new ArrayList();
+        
+        
     /**
      * Creates new form MarcoPrincipal
      */
@@ -57,6 +69,9 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     private boolean getGaraje(){
         return garaje;
     }
+    private int getPersonas(){
+        return Integer.parseInt(jTextNPersonas.getText());
+    }
     private void setTextoExitoso(){
         ExitoConfiguracion.setText("Registro con Exito");
     }
@@ -80,10 +95,26 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         jDateChooserSalida = new com.toedter.calendar.JDateChooser();
         plazaDegarajeCheck = new javax.swing.JRadioButton();
         ExitoConfiguracion = new javax.swing.JLabel();
+        jLabelNPersonas = new javax.swing.JLabel();
+        jTextNPersonas = new javax.swing.JTextField();
         BuscarPanel = new javax.swing.JPanel();
         EliminarPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        ReservarPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                ReservarPanelComponentHidden(evt);
+            }
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                ReservarPanelComponentShown(evt);
+            }
+        });
 
         nombreYApLabel.setText("Nombre y Apellido:");
 
@@ -124,35 +155,47 @@ public class MarcoPrincipal extends javax.swing.JFrame {
 
         ExitoConfiguracion.setText("            Aun no se ha hecho ninguna reserva");
 
+        jLabelNPersonas.setText("Numero de Personas");
+
+        jTextNPersonas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextNPersonasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ReservarPanelLayout = new javax.swing.GroupLayout(ReservarPanel);
         ReservarPanel.setLayout(ReservarPanelLayout);
         ReservarPanelLayout.setHorizontalGroup(
             ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReservarPanelLayout.createSequentialGroup()
-                .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ReservarPanelLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cedulaLabel)
-                            .addComponent(jLabelFechaentrada)
-                            .addComponent(jLabelFechasalida)
-                            .addComponent(jLabelTipohabitacion)))
-                    .addGroup(ReservarPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(nombreYApLabel)))
+                .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelNPersonas)
+                    .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ReservarPanelLayout.createSequentialGroup()
+                            .addGap(27, 27, 27)
+                            .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(cedulaLabel)
+                                .addComponent(jLabelFechaentrada)
+                                .addComponent(jLabelFechasalida)
+                                .addComponent(jLabelTipohabitacion)))
+                        .addGroup(ReservarPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(nombreYApLabel))))
                 .addGap(18, 18, 18)
-                .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ExitoConfiguracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(plazaDegarajeCheck)
-                    .addComponent(cedulaArea)
-                    .addGroup(ReservarPanelLayout.createSequentialGroup()
-                        .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(typeOfRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooserEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooserSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ReservarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(nombreArea))
+                .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(ExitoConfiguracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(plazaDegarajeCheck)
+                        .addComponent(cedulaArea)
+                        .addGroup(ReservarPanelLayout.createSequentialGroup()
+                            .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(typeOfRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jDateChooserEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jDateChooserSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(ReservarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nombreArea))
+                    .addComponent(jTextNPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(116, Short.MAX_VALUE))
         );
         ReservarPanelLayout.setVerticalGroup(
@@ -183,14 +226,29 @@ public class MarcoPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabelTipohabitacion)
                             .addComponent(typeOfRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(ReservarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
+                .addGroup(ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextNPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addComponent(plazaDegarajeCheck)
                 .addGap(18, 18, 18)
                 .addComponent(ExitoConfiguracion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         Pestañas.addTab("Reservar", ReservarPanel);
+
+        BuscarPanel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                BuscarPanelFocusGained(evt);
+            }
+        });
+        BuscarPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                BuscarPanelComponentShown(evt);
+            }
+        });
 
         javax.swing.GroupLayout BuscarPanelLayout = new javax.swing.GroupLayout(BuscarPanel);
         BuscarPanel.setLayout(BuscarPanelLayout);
@@ -204,6 +262,17 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         );
 
         Pestañas.addTab("Buscar", BuscarPanel);
+
+        EliminarPanel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                EliminarPanelFocusGained(evt);
+            }
+        });
+        EliminarPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                EliminarPanelComponentShown(evt);
+            }
+        });
 
         javax.swing.GroupLayout EliminarPanelLayout = new javax.swing.GroupLayout(EliminarPanel);
         EliminarPanel.setLayout(EliminarPanelLayout);
@@ -222,7 +291,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Pestañas, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+            .addComponent(Pestañas)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,17 +310,18 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_nombreAreaActionPerformed
 
     private void ReservarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReservarButtonActionPerformed
-        try{
-            getNombre();
-            getCedula();
-            getTipo();
-            getEntrada();
-            getSalida();
-            getGaraje();
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Registro fallido Intente de nuevo");
-        }
-        setTextoExitoso();
+        
+        if(focoReservar){ 
+            //Creamos el objeto con los datos de los campos
+            rese = new Reserva(getNombre(),getCedula(),getEntrada(),getSalida(),
+            getPersonas(),getTipo(),getGaraje());
+               
+            //Agrega a una lista el objeto   
+            lista.add(rese);          
+            System.out.println("Agregado en lista");
+            
+            }                   
+    setTextoExitoso();    
     }//GEN-LAST:event_ReservarButtonActionPerformed
 
     private void plazaDegarajeCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plazaDegarajeCheckActionPerformed
@@ -265,6 +335,80 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         
              
     }//GEN-LAST:event_plazaDegarajeCheckActionPerformed
+
+    private void jTextNPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNPersonasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextNPersonasActionPerformed
+
+    private void BuscarPanelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_BuscarPanelFocusGained
+        
+    }//GEN-LAST:event_BuscarPanelFocusGained
+
+    private void EliminarPanelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EliminarPanelFocusGained
+        
+    }//GEN-LAST:event_EliminarPanelFocusGained
+
+    private void ReservarPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ReservarPanelComponentShown
+        focoReservar = true;
+    }//GEN-LAST:event_ReservarPanelComponentShown
+
+    private void BuscarPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_BuscarPanelComponentShown
+        System.out.println("Buscar tiene foco");
+    }//GEN-LAST:event_BuscarPanelComponentShown
+
+    private void EliminarPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_EliminarPanelComponentShown
+        System.out.println("Eliminar tiene foco");
+    }//GEN-LAST:event_EliminarPanelComponentShown
+
+    private void ReservarPanelComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ReservarPanelComponentHidden
+        focoReservar = false;
+        
+        if(focoReservar == false && !lista.isEmpty()){
+                try{                
+                    try {
+                        guarda.escribirEnFichero(lista);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println("Escrito en fichero");
+
+            }catch(FileNotFoundException e){
+                JOptionPane.showMessageDialog(null, "Registro fallido Intente de nuevo");
+                }             
+            }
+    }//GEN-LAST:event_ReservarPanelComponentHidden
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            focoReservar = false;
+            try {
+                for(int i=0; i< guarda.getarrayObjeto().size();i++){
+                    try {
+                        lista.add(guarda.getarrayObjeto().get(i));
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(focoReservar == false && !lista.isEmpty()){
+                try{
+                    guarda.escribirEnFichero(lista);
+                    
+                    System.out.println("Escrito en fichero");
+                    
+                    
+                }catch(FileNotFoundException e){
+                    JOptionPane.showMessageDialog(null, "Registro fallido Intente de nuevo");
+                }catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     
     public static void main(String args[]) {
@@ -312,7 +456,9 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDateChooserSalida;
     private javax.swing.JLabel jLabelFechaentrada;
     private javax.swing.JLabel jLabelFechasalida;
+    private javax.swing.JLabel jLabelNPersonas;
     private javax.swing.JLabel jLabelTipohabitacion;
+    private javax.swing.JTextField jTextNPersonas;
     private javax.swing.JTextField nombreArea;
     private javax.swing.JLabel nombreYApLabel;
     private javax.swing.JRadioButton plazaDegarajeCheck;
