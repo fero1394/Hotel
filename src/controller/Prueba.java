@@ -1,5 +1,5 @@
 
-package controler;
+package controller;
 
 
 public class Prueba {
