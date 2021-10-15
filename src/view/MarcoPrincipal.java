@@ -379,35 +379,39 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_ReservarPanelComponentHidden
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+        
         try {
-            focoReservar = false;
-            try {
-                for(int i=0; i< guarda.getarrayObjeto().size();i++){
-                    try {
-                        lista.add(guarda.getarrayObjeto().get(i));
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if(focoReservar == false && !lista.isEmpty()){
-                try{
-                    guarda.escribirEnFichero(lista);
+            for(int i =0;i<guarda.getTemporal();i++){
+                
+                try {
                     
-                    System.out.println("Escrito en fichero");
+                    lista.add(guarda.rescribir(i));
                     
-                    
-                }catch(FileNotFoundException e){
-                    JOptionPane.showMessageDialog(null, "Registro fallido Intente de nuevo");
-                }catch (ClassNotFoundException ex) {
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
                     Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        } catch (FileNotFoundException ex) {
+                try{
+                    try{
+                        guarda.escribirEnFichero(lista);
+                        
+                    }catch(ClassNotFoundException ex) {
+                        Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println("Escrito en fichero");
+                }catch(FileNotFoundException e){
+                    JOptionPane.showMessageDialog(null, "Registro fallido Intente de nuevo");
+                }             
+            
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        System.out.println("Cerre el programa");
     }//GEN-LAST:event_formWindowClosing
 
     
