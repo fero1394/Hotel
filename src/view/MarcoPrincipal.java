@@ -2,6 +2,7 @@ package view;
 import model.Serializar;
 import controller.Reserva;
 import com.toedter.calendar.JDateChooser;
+import controller.Buscar;
 import java.awt.event.ItemEvent;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
@@ -98,6 +99,13 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         jLabelNPersonas = new javax.swing.JLabel();
         jTextNPersonas = new javax.swing.JTextField();
         BuscarPanel = new javax.swing.JPanel();
+        TextBuscar = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        ButtonBuscar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TextAreaDatos = new javax.swing.JTextArea();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         EliminarPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -196,7 +204,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
                             .addComponent(ReservarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(nombreArea))
                     .addComponent(jTextNPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
         ReservarPanelLayout.setVerticalGroup(
             ReservarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,15 +258,65 @@ public class MarcoPrincipal extends javax.swing.JFrame {
             }
         });
 
+        TextBuscar.setText("jTextField1");
+        TextBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Escriba nombre o cedula");
+
+        ButtonBuscar.setText("Buscar");
+        ButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Datos de la Reserva");
+
+        TextAreaDatos.setColumns(20);
+        TextAreaDatos.setRows(5);
+        jScrollPane1.setViewportView(TextAreaDatos);
+
+        jFormattedTextField1.setText("jFormattedTextField1");
+
         javax.swing.GroupLayout BuscarPanelLayout = new javax.swing.GroupLayout(BuscarPanel);
         BuscarPanel.setLayout(BuscarPanelLayout);
         BuscarPanelLayout.setHorizontalGroup(
             BuscarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
+            .addGroup(BuscarPanelLayout.createSequentialGroup()
+                .addGroup(BuscarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BuscarPanelLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(BuscarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2)
+                            .addComponent(jFormattedTextField1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                            .addComponent(ButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TextBuscar)))
+                    .addGroup(BuscarPanelLayout.createSequentialGroup()
+                        .addGap(244, 244, 244)
+                        .addComponent(jLabel3)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         BuscarPanelLayout.setVerticalGroup(
             BuscarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
+            .addGroup(BuscarPanelLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(TextBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         Pestañas.addTab("Buscar", BuscarPanel);
@@ -278,7 +336,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         EliminarPanel.setLayout(EliminarPanelLayout);
         EliminarPanelLayout.setHorizontalGroup(
             EliminarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
+            .addGap(0, 619, Short.MAX_VALUE)
         );
         EliminarPanelLayout.setVerticalGroup(
             EliminarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,6 +480,20 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         System.out.println("Cerre el programa");
     }//GEN-LAST:event_formWindowClosing
 
+    private void ButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBuscarActionPerformed
+        // TODO add your handling code here:
+        
+        String textbuscar = TextBuscar.getText();
+        Buscar busqueda = new Buscar(textbuscar);
+        
+        
+        
+    }//GEN-LAST:event_ButtonBuscarActionPerformed
+
+    private void TextBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextBuscarActionPerformed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -457,19 +529,26 @@ public class MarcoPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BuscarPanel;
+    private javax.swing.JButton ButtonBuscar;
     private javax.swing.JPanel EliminarPanel;
     private javax.swing.JLabel ExitoConfiguracion;
     private javax.swing.JTabbedPane Pestañas;
     private javax.swing.JButton ReservarButton;
     private javax.swing.JPanel ReservarPanel;
+    private javax.swing.JTextArea TextAreaDatos;
+    private javax.swing.JTextField TextBuscar;
     private javax.swing.JTextField cedulaArea;
     private javax.swing.JLabel cedulaLabel;
     private com.toedter.calendar.JDateChooser jDateChooserEntrada;
     private com.toedter.calendar.JDateChooser jDateChooserSalida;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelFechaentrada;
     private javax.swing.JLabel jLabelFechasalida;
     private javax.swing.JLabel jLabelNPersonas;
     private javax.swing.JLabel jLabelTipohabitacion;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextNPersonas;
     private javax.swing.JTextField nombreArea;
     private javax.swing.JLabel nombreYApLabel;
