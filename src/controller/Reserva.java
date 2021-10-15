@@ -34,20 +34,22 @@ public class Reserva extends Cliente implements Serializable{
     
     
     public double precioTotal(){
-                
+            
+            System.out.println("el tipo de habitacion es:"+tipoHabitacion);
             switch (tipoHabitacion) {
-                case "individual":
+                case "Individual":
                     this.phabitacion = 60000;
                     break;
-                case "familiar":
+                case "Familiar":
                     this.phabitacion = 200000;
                     break;
-                case "doble":
+                case "Doble":
                     this.phabitacion = 120000;
                     break;
                 default:
                     break;
             }
+            System.out.println("el precio de habitacion es:"+phabitacion);
         entrada = LocalDate.parse(fentrada);
         salida = LocalDate.parse(fsalida);
                                         

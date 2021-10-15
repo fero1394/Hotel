@@ -24,6 +24,7 @@ public class Buscar {
     private boolean encontrado;
     
     
+    // contructor
     public Buscar(String elemento){ 
         
         this.elemento=elemento;
@@ -35,21 +36,23 @@ public class Buscar {
     
     
     public boolean EstaCliente() throws ClassNotFoundException{
-        
+        System.out.println("Entre a metodo estacliente");
         
         try{
             
-            ObjectInputStream recuperando_fichero=new ObjectInputStream(new FileInputStream("C://Users//User//Documents//Documentos_FERNANDO//CURSOS_DE_PROGRAMACION//Proyectos JAVA//Hotel//src//Archivos//Archivo.dat"));
+            ObjectInputStream recuperando_fichero=new ObjectInputStream(new FileInputStream("C://Users//User//Documents//Documentos_FERNANDO//CURSOS_DE_PROGRAMACION//Proyectos JAVA//Hotel//Archivo.txt"));
             
             ArrayList <Reserva> listaCliente = (ArrayList <Reserva>) recuperando_fichero.readObject();
             
             recuperando_fichero.close();
             
+            System.out.println("el tamaño de la lista es"+ listaCliente.size());
             
             for (int i = 0; i < listaCliente.size(); i++) {
             
                 if (listaCliente.get(i).nombreCliente().equalsIgnoreCase(elemento) || listaCliente.get(i).cedulaCliente().equalsIgnoreCase(elemento)){
                     
+                    System.out.println("el nombre es " + listaCliente.get(i).nombreCliente());
                     this.nombre = listaCliente.get(i).nombreCliente();
                     this.cedula = listaCliente.get(i).cedulaCliente();
                     this.habitacion = listaCliente.get(i).getHabitacion();

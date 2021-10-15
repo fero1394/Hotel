@@ -22,7 +22,7 @@ public class Serializar {
                         
         try{
             //Abrimos flujo de datos de entrada  al archivo
-            ObjectOutputStream flujoEntrada = new ObjectOutputStream(new FileOutputStream("C://Users//User//Documents//NetBeansProjects//Hotel//src//Archivos//Archivo.txt"));
+            ObjectOutputStream flujoEntrada = new ObjectOutputStream(new FileOutputStream("C://Users//User//Documents//Documentos_FERNANDO//CURSOS_DE_PROGRAMACION//Proyectos JAVA//Hotel//Archivo.txt"));
             
             //Escribe en fichero
             flujoEntrada.writeObject(reservacion);
@@ -59,7 +59,7 @@ public class Serializar {
         
         try{
             //Abrimos flujo de datos de salida del archivo
-            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//NetBeansProjects//Hotel//src//Archivos//Archivo.txt"));
+            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//Documentos_FERNANDO//CURSOS_DE_PROGRAMACION//Proyectos JAVA//Hotel//src//Archivos//Archivo.txt"));
             
             /*
                 read.object nos devuelve un objeto , realizamos el casting 
@@ -98,7 +98,7 @@ public class Serializar {
     public Reserva rescribir(int u)throws FileNotFoundException, ClassNotFoundException{
         try{
             //Abrimos flujo de datos de salida del archivo
-            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//NetBeansProjects//Hotel//src//Archivos//Archivo.txt"));
+            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//Documentos_FERNANDO//CURSOS_DE_PROGRAMACION//Proyectos JAVA//Hotel//src//Archivos//Archivo.txt"));
             
             /*
                 read.object nos devuelve un objeto , realizamos el casting 
@@ -120,7 +120,7 @@ public class Serializar {
     public int getTemporal() throws ClassNotFoundException{
         try{
         //Abrimos flujo de datos de salida del archivo
-            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//NetBeansProjects//Hotel//src//Archivos//Archivo.txt"));
+            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//Documentos_FERNANDO//CURSOS_DE_PROGRAMACION//Proyectos JAVA//Hotel//src//Archivos//Archivo.txt"));
             
             /*
                 read.object nos devuelve un objeto , realizamos el casting 

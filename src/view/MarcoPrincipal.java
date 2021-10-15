@@ -3,6 +3,7 @@ import model.Serializar;
 import controller.Reserva;
 import com.toedter.calendar.JDateChooser;
 import controller.Buscar;
+import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
@@ -105,7 +106,8 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TextAreaDatos = new javax.swing.JTextArea();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jLabelConfirmando = new javax.swing.JLabel();
+        jButtonLimpiar = new javax.swing.JButton();
         EliminarPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -258,7 +260,6 @@ public class MarcoPrincipal extends javax.swing.JFrame {
             }
         });
 
-        TextBuscar.setText("jTextField1");
         TextBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextBuscarActionPerformed(evt);
@@ -276,11 +277,17 @@ public class MarcoPrincipal extends javax.swing.JFrame {
 
         jLabel3.setText("Datos de la Reserva");
 
+        TextAreaDatos.setEditable(false);
         TextAreaDatos.setColumns(20);
         TextAreaDatos.setRows(5);
         jScrollPane1.setViewportView(TextAreaDatos);
 
-        jFormattedTextField1.setText("jFormattedTextField1");
+        jButtonLimpiar.setText("Limpiar");
+        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout BuscarPanelLayout = new javax.swing.GroupLayout(BuscarPanel);
         BuscarPanel.setLayout(BuscarPanelLayout);
@@ -292,13 +299,18 @@ public class MarcoPrincipal extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addGroup(BuscarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
-                            .addComponent(jFormattedTextField1)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
                             .addComponent(ButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(TextBuscar)))
                     .addGroup(BuscarPanelLayout.createSequentialGroup()
                         .addGap(244, 244, 244)
-                        .addComponent(jLabel3)))
+                        .addComponent(jLabel3))
+                    .addGroup(BuscarPanelLayout.createSequentialGroup()
+                        .addGap(228, 228, 228)
+                        .addComponent(jLabelConfirmando, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BuscarPanelLayout.createSequentialGroup()
+                        .addGap(253, 253, 253)
+                        .addComponent(jButtonLimpiar)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         BuscarPanelLayout.setVerticalGroup(
@@ -310,13 +322,15 @@ public class MarcoPrincipal extends javax.swing.JFrame {
                 .addComponent(TextBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(jLabelConfirmando, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonLimpiar)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         Pestañas.addTab("Buscar", BuscarPanel);
@@ -475,8 +489,41 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     private void ButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBuscarActionPerformed
         // TODO add your handling code here:
         
+        System.out.println("Estoy en botton action" + TextBuscar.getText());
         String textbuscar = TextBuscar.getText();
+        TextBuscar.setText(" ");
         Buscar busqueda = new Buscar(textbuscar);
+        
+        
+        try {
+            if (busqueda.EstaCliente()){
+                
+                TextAreaDatos.setText("\t\t---------------RESERVA---------------"+
+                        "\n\n\t\tNOMBRE: "+busqueda.getNombre()+
+                        "\n\t\tCEDULA: "+busqueda.getCedula()+
+                        "\n\t\tHABITACION: "+busqueda.getHabitacion()+
+                        "\n\t\tFECHA ENTRADA: "+busqueda.getEntrada()+
+                        "\n\t\tFECHA SALIDA: "+busqueda.getSalida()+
+                        "\n\t\tCANTIDAD PERSONAS: "+busqueda.getCantPersonas()+
+                        "\n\t\tDIAS ESTADIA: "+busqueda.getDias()+
+                        "\n\t\tGARAGE: "+busqueda.getGaraje()+
+                        "\n\n\t\t----TOTAL A PAGAR----"+
+                        "\n\t\tPRECIO TOTAL: "+busqueda.getPrecioTotal());
+                
+                
+                jLabelConfirmando.setText("  SE ENCONTRO RESERVA");
+                jLabelConfirmando.setBackground(Color.green);
+                jLabelConfirmando.setOpaque(true);
+                
+            }
+            else{
+                jLabelConfirmando.setBackground(Color.red);
+                jLabelConfirmando.setText("NO SE ENCONTRO RESERVA");
+                jLabelConfirmando.setOpaque(true);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         
@@ -485,6 +532,11 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     private void TextBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextBuscarActionPerformed
+
+    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
+        // TODO add your handling code here:
+        TextAreaDatos.setText(" ");
+    }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
     
     public static void main(String args[]) {
@@ -531,11 +583,12 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField TextBuscar;
     private javax.swing.JTextField cedulaArea;
     private javax.swing.JLabel cedulaLabel;
+    private javax.swing.JButton jButtonLimpiar;
     private com.toedter.calendar.JDateChooser jDateChooserEntrada;
     private com.toedter.calendar.JDateChooser jDateChooserSalida;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelConfirmando;
     private javax.swing.JLabel jLabelFechaentrada;
     private javax.swing.JLabel jLabelFechasalida;
     private javax.swing.JLabel jLabelNPersonas;
