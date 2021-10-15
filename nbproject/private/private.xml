@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/User/Documents/Documentos_FERNANDO/CURSOS_DE_PROGRAMACION/Proyectos%20JAVA/Hotel/src/controler/Cliente.java</file>
-            <file>file:/C:/Users/User/Documents/Documentos_FERNANDO/CURSOS_DE_PROGRAMACION/Proyectos%20JAVA/Hotel/src/controler/Reserva.java</file>
-            <file>file:/C:/Users/User/Documents/Documentos_FERNANDO/CURSOS_DE_PROGRAMACION/Proyectos%20JAVA/Hotel/src/controler/Buscar.java</file>
-            <file>file:/C:/Users/User/Documents/Documentos_FERNANDO/CURSOS_DE_PROGRAMACION/Proyectos%20JAVA/Hotel/src/controler/Prueba.java</file>
-=======
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/Hotel/src/model/Serializar.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/Hotel/src/controller/Reserva.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/Hotel/src/controller/Cliente.java</file>
->>>>>>> 53416fe47c7f6249c1714b29fe11f014f9c00fbe
+            <file>file:/C:/Users/User/Documents/Documentos_FERNANDO/CURSOS_DE_PROGRAMACION/Proyectos%20JAVA/Hotel/src/controller/Prueba.java</file>
+            <file>file:/C:/Users/User/Documents/Documentos_FERNANDO/CURSOS_DE_PROGRAMACION/Proyectos%20JAVA/Hotel/src/view/MarcoPrincipal.java</file>
+            <file>file:/C:/Users/User/Documents/Documentos_FERNANDO/CURSOS_DE_PROGRAMACION/Proyectos%20JAVA/Hotel/src/controller/Reserva.java</file>
+            <file>file:/C:/Users/User/Documents/Documentos_FERNANDO/CURSOS_DE_PROGRAMACION/Proyectos%20JAVA/Hotel/src/controller/Buscar.java</file>
         </group>
     </open-files>
 </project-private>
