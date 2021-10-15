@@ -392,8 +392,16 @@ public class MarcoPrincipal extends javax.swing.JFrame {
             lista.add(rese);          
             System.out.println("Agregado en lista");
             
-            }                   
-    setTextoExitoso();    
+            }
+        
+        nombreArea.setText(" ");
+        cedulaArea.setText(" ");
+        
+        jTextNPersonas.setText(" ");
+        plazaDegarajeCheck.setSelected(false);
+                
+        setTextoExitoso();  
+    
     }//GEN-LAST:event_ReservarButtonActionPerformed
 
     private void plazaDegarajeCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plazaDegarajeCheckActionPerformed
