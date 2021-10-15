@@ -7,7 +7,10 @@ public class Prueba {
         
         Reserva usuario = new Reserva("felipe","1036650151","2021-10-01","2021-10-05",2,"doble",true);
         
-        System.out.println("--------HOTEL----------"
+        Buscar buscar = new Buscar("Andredy");
+       
+        
+        /*System.out.println("--------HOTEL----------"
                 + "\nNOMBRE: " + usuario.nombreCliente()
                 + "\nCEDULA: " + usuario.cedulaCliente()
                 + "\nHABITACION: " + usuario.getHabitacion()
@@ -18,6 +21,8 @@ public class Prueba {
                 + "\nGARAGE: " + usuario.getGarage()
                 +"\n--------------------------"
                 + "\nPRECIO TOTAL: " + usuario.precioTotal());
+        */
+        
         
     }
 }
