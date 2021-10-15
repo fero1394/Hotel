@@ -370,7 +370,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    System.out.println("Escrito en fichero");
+                    
 
             }catch(FileNotFoundException e){
                 JOptionPane.showMessageDialog(null, "Registro fallido Intente de nuevo");
@@ -401,7 +401,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
                     }catch(ClassNotFoundException ex) {
                         Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    System.out.println("Escrito en fichero");
+                    
                 }catch(FileNotFoundException e){
                     JOptionPane.showMessageDialog(null, "Registro fallido Intente de nuevo");
                 }             

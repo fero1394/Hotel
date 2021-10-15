@@ -67,7 +67,7 @@ public class Serializar {
             */
             informacion_recuperada = (ArrayList<Reserva>) flujoSalida.readObject();
                         
-            System.out.println("Lei el fichero");
+            
             
             flujoSalida.close();
             
@@ -82,7 +82,7 @@ public class Serializar {
     }
     
     public void mostrarFichero(){       
-        //leerFichero();       
+             
         for(Reserva a: informacion_recuperada){
                 System.out.println(a.nombreCliente());
                 System.out.println(a.cedulaCliente());
@@ -106,12 +106,12 @@ public class Serializar {
             */
             temporal= (ArrayList<Reserva>) flujoSalida.readObject();
                         
-            System.out.println("Lei el fichero para devolver el array");
+            
             
             flujoSalida.close();
                             
         }catch(IOException e){
-            System.out.println("Error al leer");
+            System.out.println("Error al leer en funcion reescribir");
             System.out.println(e);
         }      
         return temporal.get(u);
