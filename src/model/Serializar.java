@@ -22,7 +22,7 @@ public class Serializar {
                         
         try{
             //Abrimos flujo de datos de entrada  al archivo
-            ObjectOutputStream flujoEntrada = new ObjectOutputStream(new FileOutputStream("C://Users//User//Documents//Documentos_FERNANDO//CURSOS_DE_PROGRAMACION//Proyectos JAVA//Hotel//Archivo.txt"));
+            ObjectOutputStream flujoEntrada = new ObjectOutputStream(new FileOutputStream("C://Users//User//Documents//NetBeansProjects//Hotel//src//Archivos//Archivo.txt"));
             
             //Escribe en fichero
             flujoEntrada.writeObject(reservacion);
@@ -35,31 +35,14 @@ public class Serializar {
             
                 System.out.println("Error Al escribir un archivo nuevo");
                 System.out.println(e);
-            } 
-                             
-            try{
-            //Abrimos flujo de datos de entrada  al archivo
-            ObjectOutputStream flujoEntrada = new ObjectOutputStream(new FileOutputStream("C://Users//User//Desktop//NEGOCIOS//BOTSTORE//Archivo.txt"));
-            
-            //Escribe en fichero
-            flujoEntrada.writeObject(reservacion);
-            
-            //Cerramos el flujo de entrada
-            flujoEntrada.close();
-            
-            
-            }catch(IOException e){
-            
-                System.out.println("Error Al escribir en el archivo exixtente");
-                
-            }                     
+            }                              
     }   
     
     public void leerFichero() throws FileNotFoundException, ClassNotFoundException{
         
         try{
             //Abrimos flujo de datos de salida del archivo
-            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//Documentos_FERNANDO//CURSOS_DE_PROGRAMACION//Proyectos JAVA//Hotel//src//Archivos//Archivo.txt"));
+            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//NetBeansProjects//Hotel//src//Archivos//Archivo.txt"));
             
             /*
                 read.object nos devuelve un objeto , realizamos el casting 
@@ -81,24 +64,36 @@ public class Serializar {
         }      
     }
     
-    public void mostrarFichero(){       
-             
-        for(Reserva a: informacion_recuperada){
-                System.out.println(a.nombreCliente());
-                System.out.println(a.cedulaCliente());
-                System.out.println(a.getFechaEntrada());
-                System.out.println(a.getFechaSalida());
-                System.out.println(a.getCantidaPersonas());
-                System.out.println(a.getHabitacion());
-                System.out.println(a.getGarage());
-                
+    public ArrayList<Reserva> buscarFichero() throws ClassNotFoundException{       
+        try{
+            //Abrimos flujo de datos de salida del archivo
+            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//NetBeansProjects//Hotel//src//Archivos//Archivo.txt"));
+            
+            /*
+                read.object nos devuelve un objeto , realizamos el casting 
+                para decirle que es del tipo (Reserva[])
+            */
+            informacion_recuperada = (ArrayList<Reserva>) flujoSalida.readObject();
+                        
+            
+            
+            flujoSalida.close();
+            
+            
+            
+        }catch(IOException e){
+            System.out.println("Error al leer");
+            System.out.println(e);
+            nuevo = true;
+            
         }
+        return informacion_recuperada;
     }
     
     public Reserva rescribir(int u)throws FileNotFoundException, ClassNotFoundException{
         try{
             //Abrimos flujo de datos de salida del archivo
-            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//Documentos_FERNANDO//CURSOS_DE_PROGRAMACION//Proyectos JAVA//Hotel//src//Archivos//Archivo.txt"));
+            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//NetBeansProjects//Hotel//src//Archivos//Archivo.txt"));
             
             /*
                 read.object nos devuelve un objeto , realizamos el casting 
@@ -120,7 +115,7 @@ public class Serializar {
     public int getTemporal() throws ClassNotFoundException{
         try{
         //Abrimos flujo de datos de salida del archivo
-            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//Documentos_FERNANDO//CURSOS_DE_PROGRAMACION//Proyectos JAVA//Hotel//src//Archivos//Archivo.txt"));
+            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream("C://Users//User//Documents//NetBeansProjects//Hotel//src//Archivos//Archivo.txt"));
             
             /*
                 read.object nos devuelve un objeto , realizamos el casting 
@@ -133,6 +128,25 @@ public class Serializar {
             System.out.println("no leyo el temporal");
         }
         return temporal.size();
+    }
+    
+    public void muestaEnConsola(){
+        
+        for(Reserva a: informacion_recuperada){
+            
+            System.out.println(a.nombreCliente());
+            System.out.println(a.cedulaCliente());
+            System.out.println(a.getFechaEntrada());
+            System.out.println(a.getFechaSalida());
+            System.out.println(a.getHabitacion());
+            System.out.println(a.getCantidaPersonas());
+            System.out.println(a.getGarage());
+        }
+        
+    
+        
+    
+        
     }
 }
 

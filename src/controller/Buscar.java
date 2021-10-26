@@ -7,11 +7,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import model.Serializar;
 
 public class Buscar {
     
     private final String elemento;
     
+    private Serializar buscar;
     private String nombre;
     private String cedula;
     private String habitacion;
@@ -30,21 +32,14 @@ public class Buscar {
         this.elemento=elemento;
         
     }
-    
-    
-    
-    
-    
+                 
     public boolean EstaCliente() throws ClassNotFoundException{
         System.out.println("Entre a metodo estacliente");
-        
-        try{
-            
-            ObjectInputStream recuperando_fichero=new ObjectInputStream(new FileInputStream("C://Users//User//Documents//Documentos_FERNANDO//CURSOS_DE_PROGRAMACION//Proyectos JAVA//Hotel//Archivo.txt"));
-            
-            ArrayList <Reserva> listaCliente = (ArrayList <Reserva>) recuperando_fichero.readObject();
-            
-            recuperando_fichero.close();
+                                                   
+            ArrayList <Reserva> listaCliente = new ArrayList <Reserva>();
+                                                      
+            buscar = new Serializar();
+            listaCliente = buscar.buscarFichero();
             
             System.out.println("el tamaño de la lista es"+ listaCliente.size());
             
@@ -63,20 +58,13 @@ public class Buscar {
                     this.garaje = listaCliente.get(i).getGarage();
                     this.precioTotal = listaCliente.get(i).precioTotal();
         
-                    this.encontrado=true;
+                    
 
                 }
                 else{
                     this.encontrado=false;
                 }
-            }
-        
-            }catch(IOException e){
-            
-            JOptionPane.showMessageDialog(null, "Problemas con el fichero que contiene la lista de clientes");
-        
-        }
-        
+            }      
         return encontrado;
        
     }

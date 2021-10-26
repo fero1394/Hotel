@@ -3,6 +3,7 @@ import model.Serializar;
 import controller.Reserva;
 import com.toedter.calendar.JDateChooser;
 import controller.Buscar;
+import controller.Eliminar;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.io.FileNotFoundException;
@@ -18,6 +19,7 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     private boolean garaje;
     Serializar guarda = new Serializar();
     boolean focoReservar = true;
+    Eliminar eliminarUsuario;
     
     //Creamos un ArrayList de tipo objeto para guardar temporalmente los clientes
     ArrayList<Reserva> lista = new ArrayList();
@@ -109,6 +111,12 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         jLabelConfirmando = new javax.swing.JLabel();
         jButtonLimpiar = new javax.swing.JButton();
         EliminarPanel = new javax.swing.JPanel();
+        jLabelEliminarEscriba = new javax.swing.JLabel();
+        jTextFieldEliminarNomCed = new javax.swing.JTextField();
+        jButtonEliminarReserva = new javax.swing.JButton();
+        jTextFieldEliminado = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -346,15 +354,63 @@ public class MarcoPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabelEliminarEscriba.setText("Escriba Nombre o Cedula ");
+
+        jTextFieldEliminarNomCed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldEliminarNomCedActionPerformed(evt);
+            }
+        });
+
+        jButtonEliminarReserva.setText("Eliminar Reserva");
+        jButtonEliminarReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarReservaActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Crear Fichero de Reservas vacio o vaciar el actual");
+
+        jButton2.setText("Eliminar Fichero Fisico");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout EliminarPanelLayout = new javax.swing.GroupLayout(EliminarPanel);
         EliminarPanel.setLayout(EliminarPanelLayout);
         EliminarPanelLayout.setHorizontalGroup(
             EliminarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 619, Short.MAX_VALUE)
+            .addGroup(EliminarPanelLayout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addGroup(EliminarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(EliminarPanelLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldEliminado)
+                    .addComponent(jLabelEliminarEscriba)
+                    .addComponent(jButtonEliminarReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldEliminarNomCed))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         EliminarPanelLayout.setVerticalGroup(
             EliminarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
+            .addGroup(EliminarPanelLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jLabelEliminarEscriba)
+                .addGap(18, 18, 18)
+                .addComponent(jTextFieldEliminarNomCed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonEliminarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextFieldEliminado, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(76, 76, 76)
+                .addGroup(EliminarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         Pestañas.addTab("Eliminar", EliminarPanel);
@@ -399,6 +455,38 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         
         jTextNPersonas.setText(" ");
         plazaDegarajeCheck.setSelected(false);
+        
+         try {
+            for(int i =0;i<guarda.getTemporal();i++){
+                
+                try {
+                    
+                    lista.add(guarda.rescribir(i));
+                    
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+                try{
+                    try{
+                        guarda.escribirEnFichero(lista);
+                        
+                    }catch(ClassNotFoundException ex) {
+                        Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                }catch(FileNotFoundException e){
+                    JOptionPane.showMessageDialog(null, "Registro fallido Intente de nuevo");
+                }             
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        System.out.println("Cerre el programa");
                 
         setTextoExitoso();  
     
@@ -441,57 +529,12 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_EliminarPanelComponentShown
 
     private void ReservarPanelComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_ReservarPanelComponentHidden
-        focoReservar = false;
-        
-        if(focoReservar == false && !lista.isEmpty()){
-                try{                
-                    try {
-                        guarda.escribirEnFichero(lista);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-
-            }catch(FileNotFoundException e){
-                JOptionPane.showMessageDialog(null, "Registro fallido Intente de nuevo");
-                }             
-            }
+                  
     }//GEN-LAST:event_ReservarPanelComponentHidden
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         
-        
-        try {
-            for(int i =0;i<guarda.getTemporal();i++){
-                
-                try {
-                    
-                    lista.add(guarda.rescribir(i));
-                    
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-                try{
-                    try{
-                        guarda.escribirEnFichero(lista);
-                        
-                    }catch(ClassNotFoundException ex) {
-                        Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                }catch(FileNotFoundException e){
-                    JOptionPane.showMessageDialog(null, "Registro fallido Intente de nuevo");
-                }             
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        System.out.println("Cerre el programa");
+      
     }//GEN-LAST:event_formWindowClosing
 
     private void ButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBuscarActionPerformed
@@ -546,6 +589,29 @@ public class MarcoPrincipal extends javax.swing.JFrame {
         TextAreaDatos.setText(" ");
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
+    private void jTextFieldEliminarNomCedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEliminarNomCedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldEliminarNomCedActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonEliminarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarReservaActionPerformed
+        
+        eliminarUsuario = new Eliminar(jTextFieldEliminarNomCed.getText());
+        try {
+            eliminarUsuario.procesoEliminacion();
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MarcoPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jTextFieldEliminado.setText(eliminarUsuario.muestraEliminado());
+               
+    }//GEN-LAST:event_jButtonEliminarReservaActionPerformed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -591,17 +657,23 @@ public class MarcoPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField TextBuscar;
     private javax.swing.JTextField cedulaArea;
     private javax.swing.JLabel cedulaLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonEliminarReserva;
     private javax.swing.JButton jButtonLimpiar;
     private com.toedter.calendar.JDateChooser jDateChooserEntrada;
     private com.toedter.calendar.JDateChooser jDateChooserSalida;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelConfirmando;
+    private javax.swing.JLabel jLabelEliminarEscriba;
     private javax.swing.JLabel jLabelFechaentrada;
     private javax.swing.JLabel jLabelFechasalida;
     private javax.swing.JLabel jLabelNPersonas;
     private javax.swing.JLabel jLabelTipohabitacion;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextFieldEliminado;
+    private javax.swing.JTextField jTextFieldEliminarNomCed;
     private javax.swing.JTextField jTextNPersonas;
     private javax.swing.JTextField nombreArea;
     private javax.swing.JLabel nombreYApLabel;
